@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   User,
   Phone,
@@ -9,12 +10,14 @@ import {
   ShieldCheck,
   AlertCircle,
   FileText,
+  Bell,
+  CheckCircle2,
+  LogIn,
+  XCircle,
 } from "lucide-react";
 
-import { useNavigate } from "react-router-dom";
-
 function VisitorDetailsCard() {
-  const navigate = useNavigate();
+  const [status, setStatus] = useState("Pending Check-In");
 
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden">
@@ -28,11 +31,11 @@ function VisitorDetailsCard() {
           <div>
 
             <h2 className="text-3xl font-bold text-white">
-              Visitor Approval
+              Visitor Verification
             </h2>
 
             <p className="text-slate-400 mt-2">
-              Review visitor details before allowing access.
+              Verify visitor identity before completing check-in.
             </p>
 
           </div>
@@ -40,11 +43,11 @@ function VisitorDetailsCard() {
           <div className="flex gap-3">
 
             <span className="px-4 py-2 rounded-full bg-green-500/20 text-green-400 text-sm font-semibold">
-              VERIFIED
+              ADMIN APPROVED
             </span>
 
-            <span className="px-4 py-2 rounded-full bg-yellow-500/20 text-yellow-400 text-sm font-semibold">
-              HIGH PRIORITY
+            <span className="px-4 py-2 rounded-full bg-blue-500/20 text-blue-400 text-sm font-semibold">
+              {status}
             </span>
 
           </div>
@@ -96,7 +99,7 @@ function VisitorDetailsCard() {
                   </p>
 
                   <p className="text-green-400 font-semibold">
-                    Successfully Verified
+                    QR / OTP Verified
                   </p>
 
                 </div>
@@ -112,24 +115,55 @@ function VisitorDetailsCard() {
         {/* Right */}
 
         <div className="xl:col-span-2">
+                    <div className="grid md:grid-cols-2 gap-5">
 
-          <div className="grid md:grid-cols-2 gap-5">
+            <Info
+              icon={Phone}
+              label="Mobile"
+              value="9876543210"
+            />
 
-            <Info icon={Phone} label="Mobile" value="9876543210" />
+            <Info
+              icon={Building2}
+              label="Company"
+              value="ABC Pvt Ltd"
+            />
 
-            <Info icon={Building2} label="Company" value="ABC Pvt Ltd" />
+            <Info
+              icon={Briefcase}
+              label="Purpose"
+              value="Business Meeting"
+            />
 
-            <Info icon={Briefcase} label="Purpose" value="Business Meeting" />
+            <Info
+              icon={User}
+              label="Host"
+              value="John Doe"
+            />
 
-            <Info icon={User} label="Host" value="John Doe" />
+            <Info
+              icon={Building2}
+              label="Department"
+              value="IT Department"
+            />
 
-            <Info icon={Building2} label="Department" value="IT Department" />
+            <Info
+              icon={MapPin}
+              label="Location"
+              value="Block A • Floor 2"
+            />
 
-            <Info icon={MapPin} label="Location" value="Block A - Floor 2" />
+            <Info
+              icon={Calendar}
+              label="Visit Date"
+              value="08 Jul 2026"
+            />
 
-            <Info icon={Calendar} label="Visit Date" value="08 Jul 2026" />
-
-            <Info icon={Clock} label="Visit Time" value="10:30 AM" />
+            <Info
+              icon={Clock}
+              label="Visit Time"
+              value="10:30 AM"
+            />
 
           </div>
 
@@ -144,41 +178,55 @@ function VisitorDetailsCard() {
                 size={22}
               />
 
-              <h3 className="text-xl text-white font-semibold">
+              <h3 className="text-xl font-semibold text-white">
                 Meeting Summary
               </h3>
 
             </div>
 
             <p className="text-slate-300 leading-7">
-              Visitor has requested access for a scheduled business
-              meeting regarding enterprise software implementation
-              and technical discussion with the IT Department.
+
+              Visitor is scheduled for an enterprise business
+              meeting regarding software implementation and
+              technical discussion with the IT Department.
+
             </p>
 
           </div>
 
-          {/* Approval Notice */}
+          {/* Reception Notice */}
 
-          <div className="mt-6 rounded-3xl bg-yellow-500/10 border border-yellow-500/20 p-5">
+          <div className="mt-6 rounded-3xl bg-blue-500/10 border border-blue-500/20 p-6">
 
-            <div className="flex gap-3">
+            <div className="flex gap-4">
 
               <AlertCircle
-                className="text-yellow-400 mt-1"
-                size={20}
+                className="text-blue-400 mt-1"
+                size={22}
               />
 
               <div>
 
-                <h4 className="text-yellow-300 font-semibold">
-                  Approval Notice
+                <h4 className="text-blue-300 font-semibold text-lg">
+
+                  Reception Instructions
+
                 </h4>
 
-                <p className="text-slate-300 mt-2">
-                  Please verify the visitor's identity before
-                  granting access. Once approved, the visitor
-                  can complete the reception check-in process.
+                <p className="text-slate-300 mt-3 leading-7">
+
+                  This meeting has already been approved by the
+                  administrator.
+
+                  <br /><br />
+
+                  Verify the visitor using the QR Code or OTP.
+
+                  <br /><br />
+
+                  After successful verification, complete the
+                  visitor Check-In and notify the meeting host.
+
                 </p>
 
               </div>
@@ -187,14 +235,69 @@ function VisitorDetailsCard() {
 
           </div>
 
-          {/* Buttons */}
+          {/* Current Status */}
 
-          <div className="flex gap-5 mt-8">
+          <div className="mt-8 rounded-2xl border border-slate-700 bg-slate-800 p-5">
+
+            <div className="flex justify-between items-center">
+
+              <span className="text-slate-400">
+
+                Visitor Status
+
+              </span>
+
+              <span
+                className={`px-4 py-2 rounded-full font-semibold ${
+                  status === "Pending Check-In"
+                    ? "bg-yellow-500/20 text-yellow-400"
+                    : status === "Verified"
+                    ? "bg-blue-500/20 text-blue-400"
+                    : "bg-green-500/20 text-green-400"
+                }`}
+              >
+
+                {status}
+
+              </span>
+
+            </div>
+
+          </div>
+                    {/* Action Buttons */}
+
+          <div className="grid grid-cols-2 gap-5 mt-8">
 
             <button
-              onClick={() => navigate("/approval-success")}
+              onClick={() => setStatus("Verified")}
               className="
-              flex-1
+              py-4
+              rounded-2xl
+              bg-gradient-to-r
+              from-blue-600
+              to-cyan-500
+              hover:scale-105
+              transition-all
+              duration-300
+              text-white
+              font-bold
+              shadow-xl
+              flex
+              justify-center
+              items-center
+              gap-3
+              "
+            >
+
+              <CheckCircle2 size={20} />
+
+              Verify Visitor
+
+            </button>
+
+            <button
+              onClick={() => setStatus("Checked In")}
+              className="
               py-4
               rounded-2xl
               bg-gradient-to-r
@@ -206,14 +309,49 @@ function VisitorDetailsCard() {
               text-white
               font-bold
               shadow-xl
+              flex
+              justify-center
+              items-center
+              gap-3
               "
             >
-              ✓ Approve Visitor
+
+              <LogIn size={20} />
+
+              Check-In Visitor
+
             </button>
 
             <button
+              onClick={() => alert("Host Notification Ready")}
               className="
-              flex-1
+              py-4
+              rounded-2xl
+              bg-gradient-to-r
+              from-indigo-600
+              to-violet-500
+              hover:scale-105
+              transition-all
+              duration-300
+              text-white
+              font-bold
+              shadow-xl
+              flex
+              justify-center
+              items-center
+              gap-3
+              "
+            >
+
+              <Bell size={20} />
+
+              Notify Host
+
+            </button>
+
+            <button
+              onClick={() => setStatus("Rejected")}
+              className="
               py-4
               rounded-2xl
               bg-gradient-to-r
@@ -225,9 +363,17 @@ function VisitorDetailsCard() {
               text-white
               font-bold
               shadow-xl
+              flex
+              justify-center
+              items-center
+              gap-3
               "
             >
-              ✕ Reject Visitor
+
+              <XCircle size={20} />
+
+              Reject Entry
+
             </button>
 
           </div>
@@ -242,11 +388,11 @@ function VisitorDetailsCard() {
 
 function Info({ icon: Icon, label, value }) {
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-blue-500 transition-all">
+    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-5 hover:border-cyan-500 transition-all duration-300">
 
       <div className="flex items-start gap-4">
 
-        <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+        <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center">
 
           <Icon
             size={20}

@@ -1,6 +1,9 @@
 import {
   LayoutDashboard,
-  CalendarPlus,
+  Users,
+  Building2,
+  UserCog,
+  CalendarDays,
   ClipboardList,
   BarChart3,
   Settings,
@@ -13,14 +16,29 @@ const adminMenu = [
     path: "/admin/dashboard",
   },
   {
+    title: "User Management",
+    icon: Users,
+    path: "/admin/users",
+  },
+  {
+    title: "Department Management",
+    icon: Building2,
+    path: "/admin/departments",
+  },
+  {
+    title: "Employee Management",
+    icon: UserCog,
+    path: "/admin/employees",
+  },
+  {
     title: "Schedule Meeting",
-    icon: CalendarPlus,
+    icon: CalendarDays,
     path: "/admin/schedule-meeting",
   },
   {
-    title: "Visitor Status",
+    title: "Visitor History",
     icon: ClipboardList,
-    path: "/visitor-status",
+    path: "/admin/visitor-history",
   },
   {
     title: "Reports",

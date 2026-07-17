@@ -1,13 +1,19 @@
 import ReceptionLayout from "../../layouts/roles/ReceptionLayout";
 import DataTable from "../../components/table/DataTable";
+
 import { visitors } from "../../data/dashboard";
+
 import {
   Users,
   Download,
   Plus,
+  ShieldCheck,
 } from "lucide-react";
 
 function VisitorStatus() {
+  // Later replace this with MeetingContext
+  // const { checkedInVisitors } = useMeeting();
+
   return (
     <ReceptionLayout>
 
@@ -24,7 +30,7 @@ function VisitorStatus() {
             </h1>
 
             <p className="text-slate-400 mt-2">
-              Monitor, search and manage all visitor records.
+              Monitor visitors currently inside the organization.
             </p>
 
           </div>
@@ -38,15 +44,15 @@ function VisitorStatus() {
               rounded-2xl
               bg-slate-800
               border border-slate-700
-              hover:border-blue-500
+              hover:border-cyan-500
               text-white
-              transition
+              transition-all
               "
             >
 
               <Download size={18} />
 
-              Export
+              Export Report
 
             </button>
 
@@ -59,15 +65,15 @@ function VisitorStatus() {
               from-blue-600
               to-cyan-500
               text-white
-              shadow-xl
               hover:scale-105
               transition-all
+              shadow-xl
               "
             >
 
               <Plus size={18} />
 
-              New Visitor
+              Register Visitor
 
             </button>
 
@@ -75,30 +81,104 @@ function VisitorStatus() {
 
         </div>
 
-        {/* Summary */}
+        {/* Summary Cards */}
 
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+        <div className="grid md:grid-cols-3 gap-6">
 
-          <div className="flex items-center gap-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
 
-            <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center">
+            <div className="flex items-center gap-4">
 
-              <Users
-                size={30}
-                className="text-white"
-              />
+              <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center">
+
+                <Users
+                  className="text-white"
+                  size={30}
+                />
+
+              </div>
+
+              <div>
+
+                <h2 className="text-3xl font-bold text-white">
+
+                  {visitors.length}
+
+                </h2>
+
+                <p className="text-slate-400">
+
+                  Total Visitors
+
+                </p>
+
+              </div>
 
             </div>
 
-            <div>
+          </div>
 
-              <h2 className="text-white text-2xl font-bold">
-                {visitors.length}
-              </h2>
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
 
-              <p className="text-slate-400">
-                Total Visitors
-              </p>
+            <div className="flex items-center gap-4">
+
+              <div className="w-16 h-16 rounded-2xl bg-green-600 flex items-center justify-center">
+
+                <ShieldCheck
+                  className="text-white"
+                  size={30}
+                />
+
+              </div>
+
+              <div>
+
+                <h2 className="text-3xl font-bold text-white">
+
+                  {visitors.filter(v => v.status === "Checked In").length}
+
+                </h2>
+
+                <p className="text-slate-400">
+
+                  Checked-In
+
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
+
+            <div className="flex items-center gap-4">
+
+              <div className="w-16 h-16 rounded-2xl bg-yellow-500 flex items-center justify-center">
+
+                <Users
+                  className="text-white"
+                  size={30}
+                />
+
+              </div>
+
+              <div>
+
+                <h2 className="text-3xl font-bold text-white">
+
+                  {visitors.filter(v => v.status !== "Checked Out").length}
+
+                </h2>
+
+                <p className="text-slate-400">
+
+                  Inside Building
+
+                </p>
+
+              </div>
 
             </div>
 
@@ -106,7 +186,7 @@ function VisitorStatus() {
 
         </div>
 
-        {/* Table */}
+        {/* Visitor Table */}
 
         <DataTable
           title="Today's Visitor Records"

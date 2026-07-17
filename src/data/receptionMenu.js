@@ -1,10 +1,10 @@
 import {
   LayoutDashboard,
   UserPlus,
-  BadgeCheck,
-  Users,
-  QrCode,
-  History,
+  ShieldCheck,
+  LogIn,
+  LogOut,
+  ClipboardList,
 } from "lucide-react";
 
 const receptionMenu = [
@@ -16,27 +16,27 @@ const receptionMenu = [
   {
     title: "Visitor Onboarding",
     icon: UserPlus,
-    path: "/visitor-onboarding",
+    path: "/reception/visitor-onboarding",
   },
   {
     title: "Visit Verification",
-    icon: BadgeCheck,
-    path: "/visit-verification",
-  },
-  {
-    title: "Visitor Status",
-    icon: Users,
-    path: "/visitor-status",
+    icon: ShieldCheck,
+    path: "/reception/visit-verification",
   },
   {
     title: "Visitor Check-In",
-    icon: QrCode,
-    path: "/visitor-check-in",
+    icon: LogIn,
+    path: "/reception/visitor-check-in",
   },
   {
-    title: "Visitor History",
-    icon: History,
-    path: "/visitor-history",
+    title: "Visitor Check-Out",
+    icon: LogOut,
+    path: "/reception/visitor-check-out",
+  },
+  {
+    title: "Visitor Status",
+    icon: ClipboardList,
+    path: "/reception/visitor-status",
   },
 ];
 

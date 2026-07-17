@@ -1,47 +1,109 @@
 import QRCode from "react-qr-code";
-import { Download, Printer } from "lucide-react";
+import {
+  QrCode,
+  Download,
+} from "lucide-react";
 
 function MeetingQRCode({ meetingUrl }) {
-  if (!meetingUrl) return null;
+  const downloadQR = () => {
+    alert("Download QR functionality will be added with backend.");
+  };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 text-center">
+    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-xl">
 
-      <h2 className="text-2xl font-bold text-white mb-8">
-        Visitor QR Pass
-      </h2>
+      {/* Header */}
 
-      <div className="inline-block bg-white p-5 rounded-3xl">
+      <div className="flex justify-between items-center mb-8">
 
-        <QRCode
-          value={meetingUrl}
-          size={220}
+        <div>
+
+          <h2 className="text-2xl font-bold text-white">
+            Meeting QR Code
+          </h2>
+
+          <p className="text-slate-400 mt-2">
+            Visitor will use this QR for reception verification.
+          </p>
+
+        </div>
+
+        <QrCode
+          size={34}
+          className="text-cyan-400"
         />
 
       </div>
 
-      <div className="flex justify-center gap-4 mt-8">
+      {/* QR */}
 
-        <button className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-xl text-white flex items-center gap-2">
+      <div className="flex justify-center">
 
-          <Download size={18} />
+        <div className="bg-white rounded-3xl p-6 shadow-xl">
 
-          Download
+          <QRCode
+            value={meetingUrl || "https://visitor-management.local"}
+            size={220}
+          />
 
-        </button>
-
-        <button
-          onClick={() => window.print()}
-          className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl text-white flex items-center gap-2"
-        >
-
-          <Printer size={18} />
-
-          Print
-
-        </button>
+        </div>
 
       </div>
+
+      {/* URL */}
+
+      <div className="mt-8">
+
+        <label className="block text-slate-300 mb-3">
+          Meeting URL
+        </label>
+
+        <input
+          value={meetingUrl || ""}
+          readOnly
+          className="
+          w-full
+          rounded-2xl
+          bg-slate-800
+          border
+          border-slate-700
+          px-5
+          py-4
+          text-white
+          outline-none
+          "
+        />
+
+      </div>
+
+      {/* Button */}
+
+      <button
+        onClick={downloadQR}
+        className="
+        w-full
+        mt-8
+        rounded-2xl
+        bg-gradient-to-r
+        from-cyan-600
+        to-blue-600
+        hover:scale-105
+        transition-all
+        py-4
+        text-white
+        font-semibold
+        flex
+        justify-center
+        items-center
+        gap-3
+        "
+      >
+
+        <Download size={20} />
+
+        Download QR
+
+      </button>
 
     </div>
   );

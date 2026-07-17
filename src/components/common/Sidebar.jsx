@@ -1,4 +1,7 @@
-import { NavLink } from "react-router-dom";
+import {
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
 import {
   LogOut,
   UserCircle2,
@@ -14,6 +17,12 @@ function Sidebar({
   userRole = "Administrator",
 }) {
   const { collapsed, toggleSidebar } = useSidebar();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login", { replace: true });
+  };
 
   return (
     <motion.aside
@@ -222,11 +231,12 @@ function Sidebar({
       <div className="border-t border-slate-800 p-5">
 
         <button
+          onClick={handleLogout}
           className={`w-full flex items-center ${
             collapsed
               ? "justify-center"
               : "gap-3"
-          } rounded-2xl bg-red-500/10 hover:bg-red-500 transition py-3 text-red-400 hover:text-white`}
+          } rounded-2xl bg-red-500/10 hover:bg-red-600 transition py-3 text-red-400 hover:text-white`}
         >
 
           <LogOut size={20} />

@@ -28,28 +28,57 @@ function LoginCard() {
   });
 
   const handleLogin = () => {
-    if (!form.username.trim()) {
-      alert("Please enter your username.");
+  if (!form.username.trim()) {
+    alert("Please enter your username.");
+    return;
+  }
+
+  if (!form.password.trim()) {
+    alert("Please enter your password.");
+    return;
+  }
+
+  setLoading(true);
+
+  setTimeout(() => {
+    setLoading(false);
+
+    // ================= ADMIN LOGIN =================
+
+    if (
+      role === "admin" &&
+      form.username === "admin" &&
+      form.password === "admin123"
+    ) {
+
+      localStorage.setItem("role", "admin");
+      localStorage.setItem("userName", "Administrator");
+      localStorage.setItem("userRole", "Administrator");
+
+      navigate("/admin/dashboard");
       return;
     }
 
-    if (!form.password.trim()) {
-      alert("Please enter your password.");
+    // ================= RECEPTION LOGIN =================
+
+    if (
+      role === "reception" &&
+      form.username === "reception" &&
+      form.password === "reception123"
+    ) {
+
+      localStorage.setItem("role", "reception");
+      localStorage.setItem("userName", "Reception Desk");
+      localStorage.setItem("userRole", "Reception");
+
+      navigate("/reception/dashboard");
       return;
     }
 
-    setLoading(true);
+    alert("Invalid Username or Password");
 
-    setTimeout(() => {
-      setLoading(false);
-
-      if (role === "admin") {
-        navigate("/admin/dashboard");
-      } else {
-        navigate("/reception/dashboard");
-      }
-    }, 1500);
-  };
+  }, 1500);
+};
 
   return (
     <motion.div
@@ -57,15 +86,15 @@ function LoginCard() {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.7 }}
       className="
-      w-full
-      max-w-2xl
-      rounded-[36px]
-      border
-      border-white/10
-      bg-white/5
-      backdrop-blur-3xl
-      shadow-[0_30px_80px_rgba(0,0,0,.45)]
-      p-12
+        w-full
+        max-w-2xl
+        rounded-[36px]
+        border
+        border-white/10
+        bg-white/5
+        backdrop-blur-3xl
+        shadow-[0_30px_80px_rgba(0,0,0,.45)]
+        p-12
       "
     >
       {/* Logo */}
@@ -73,17 +102,17 @@ function LoginCard() {
       <div className="flex justify-center mb-6">
         <div
           className="
-          w-20
-          h-20
-          rounded-3xl
-          bg-gradient-to-br
-          from-blue-600
-          via-cyan-500
-          to-cyan-400
-          flex
-          items-center
-          justify-center
-          shadow-2xl
+            w-20
+            h-20
+            rounded-3xl
+            bg-gradient-to-br
+            from-blue-600
+            via-cyan-500
+            to-cyan-400
+            flex
+            items-center
+            justify-center
+            shadow-2xl
           "
         >
           <ShieldCheck
@@ -120,8 +149,6 @@ function LoginCard() {
 
       <div className="mt-8 space-y-6">
 
-        {/* Username */}
-
         <div>
 
           <label className="text-slate-200 font-medium block mb-3">
@@ -146,29 +173,27 @@ function LoginCard() {
                 })
               }
               className="
-              w-full
-              rounded-2xl
-              bg-slate-900/70
-              border
-              border-slate-700
-              pl-12
-              pr-5
-              py-4
-              text-white
-              outline-none
-              transition-all
-              duration-300
-              focus:border-cyan-400
-              focus:ring-2
-              focus:ring-cyan-500/20
+                w-full
+                rounded-2xl
+                bg-slate-900/70
+                border
+                border-slate-700
+                pl-12
+                pr-5
+                py-4
+                text-white
+                outline-none
+                transition-all
+                duration-300
+                focus:border-cyan-400
+                focus:ring-2
+                focus:ring-cyan-500/20
               "
             />
 
           </div>
 
         </div>
-
-        {/* Password */}
 
         <div>
 
@@ -194,36 +219,34 @@ function LoginCard() {
                 })
               }
               className="
-              w-full
-              rounded-2xl
-              bg-slate-900/70
-              border
-              border-slate-700
-              pl-12
-              pr-14
-              py-4
-              text-white
-              outline-none
-              transition-all
-              duration-300
-              focus:border-cyan-400
-              focus:ring-2
-              focus:ring-cyan-500/20
+                w-full
+                rounded-2xl
+                bg-slate-900/70
+                border
+                border-slate-700
+                pl-12
+                pr-14
+                py-4
+                text-white
+                outline-none
+                transition-all
+                duration-300
+                focus:border-cyan-400
+                focus:ring-2
+                focus:ring-cyan-500/20
               "
             />
 
             <button
               type="button"
-              onClick={() =>
-                setShowPassword(!showPassword)
-              }
+              onClick={() => setShowPassword(!showPassword)}
               className="
-              absolute
-              right-4
-              top-4
-              text-slate-400
-              hover:text-white
-              transition
+                absolute
+                right-4
+                top-4
+                text-slate-400
+                hover:text-white
+                transition
               "
             >
               {showPassword ? (
@@ -236,8 +259,6 @@ function LoginCard() {
           </div>
 
         </div>
-
-        {/* Remember */}
 
         <div className="flex justify-between items-center">
 
@@ -252,12 +273,7 @@ function LoginCard() {
                   remember: e.target.checked,
                 })
               }
-              className="
-              w-4
-              h-4
-              accent-cyan-500
-              rounded
-              "
+              className="w-4 h-4 accent-cyan-500"
             />
 
             Remember Me
@@ -265,20 +281,19 @@ function LoginCard() {
           </label>
 
           <button
+            type="button"
             onClick={() => navigate("/forgot-password")}
             className="
-            text-cyan-400
-            hover:text-cyan-300
-            hover:underline
-            transition
+              text-cyan-400
+              hover:text-cyan-300
+              hover:underline
+              transition
             "
           >
-            Forgot Password
+            Forgot Password?
           </button>
 
         </div>
-
-        {/* Divider */}
 
         <div className="border-t border-slate-700 pt-8">
 
@@ -286,28 +301,27 @@ function LoginCard() {
             onClick={handleLogin}
             disabled={loading}
             className="
-            w-full
-            rounded-2xl
-            py-4
-            font-semibold
-            text-lg
-            text-white
-            bg-gradient-to-r
-            from-cyan-500
-            via-blue-600
-            to-indigo-600
-            hover:scale-[1.02]
-            transition-all
-            duration-300
-            disabled:opacity-70
-            flex
-            justify-center
-            items-center
-            gap-3
-            shadow-xl
+              w-full
+              rounded-2xl
+              py-4
+              font-semibold
+              text-lg
+              text-white
+              bg-gradient-to-r
+              from-cyan-500
+              via-blue-600
+              to-indigo-600
+              hover:scale-[1.02]
+              transition-all
+              duration-300
+              disabled:opacity-70
+              flex
+              justify-center
+              items-center
+              gap-3
+              shadow-xl
             "
           >
-
             {loading ? (
               <>
                 <Loader2
@@ -323,7 +337,6 @@ function LoginCard() {
                 <ArrowRight size={18} />
               </>
             )}
-
           </button>
 
         </div>

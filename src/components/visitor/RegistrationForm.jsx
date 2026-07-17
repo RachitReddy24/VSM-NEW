@@ -1,151 +1,175 @@
-import Input from "../ui/Input";
-import Select from "../ui/Select";
-import Button from "../ui/Button";
+import { useState } from "react";
+import {
+  User,
+  Phone,
+  Mail,
+  Building2,
+  Users,
+  CalendarDays,
+  Clock3,
+  Briefcase,
+  Car,
+  FileText,
+} from "lucide-react";
 
 function RegistrationForm() {
-  return (
-    <div className="bg-white rounded-xl shadow border p-8">
+  const [formData, setFormData] = useState({
+    fullName: "",
+    mobile: "",
+    email: "",
+    company: "",
+    gender: "",
+    visitorType: "",
+    idType: "",
+    idNumber: "",
+    host: "",
+    department: "",
+    purpose: "",
+    visitDate: "",
+    visitTime: "",
+    duration: "",
+    vehicle: "",
+    laptop: "No",
+    remarks: "",
+    emergencyContact: "",
+  });
 
-      <h1 className="text-3xl font-bold mb-8">
-        Visitor Registration
-      </h1>
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  return (
+    <div className="space-y-8">
 
       {/* Personal Information */}
 
-      <div className="mb-10">
+      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
 
-        <h2 className="text-xl font-semibold border-b pb-3 mb-6">
+        <h2 className="text-2xl font-bold text-white mb-8">
           Personal Information
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-6">
 
-          <Input
-            label="Full Name"
-            placeholder="Enter Full Name"
-          />
+          <Input icon={User} label="Full Name" name="fullName" value={formData.fullName} onChange={handleChange} placeholder="Enter Full Name" />
 
-          <Input
-            label="Mobile Number"
-            placeholder="9876543210"
-          />
+          <Input icon={Phone} label="Mobile Number" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="Enter Mobile Number" />
 
-          <Input
-            label="Email Address"
-            placeholder="example@gmail.com"
-          />
+          <Input icon={Mail} label="Email Address" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Enter Email" />
 
-          <Input
-            label="Company Name"
-            placeholder="Company Name"
-          />
+          <Input icon={Building2} label="Company Name" name="company" value={formData.company} onChange={handleChange} placeholder="Company" />
+
+          <Input icon={User} label="Gender" name="gender" value={formData.gender} onChange={handleChange} placeholder="Male / Female" />
+
+          <Input icon={Users} label="Visitor Type" name="visitorType" value={formData.visitorType} onChange={handleChange} placeholder="Scheduled / Walk-In" />
+
+          <Input icon={FileText} label="Government ID" name="idType" value={formData.idType} onChange={handleChange} placeholder="Aadhaar / PAN / Passport" />
+
+          <Input icon={FileText} label="ID Number" name="idNumber" value={formData.idNumber} onChange={handleChange} placeholder="Enter ID Number" />
 
         </div>
 
       </div>
 
-      {/* Visit Details */}
+      {/* Meeting Information */}
 
-      <div className="mb-10">
+      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
 
-        <h2 className="text-xl font-semibold border-b pb-3 mb-6">
-          Visit Details
+        <h2 className="text-2xl font-bold text-white mb-8">
+          Meeting Information
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-6">
 
-          <Input
-            label="Meeting Person"
-            placeholder="Host Name"
-          />
+          <Input icon={Users} label="Host Name" name="host" value={formData.host} onChange={handleChange} placeholder="Meeting Host" />
 
-          <Input
-            label="Department"
-            placeholder="Department"
-          />
+          <Input icon={Building2} label="Department" name="department" value={formData.department} onChange={handleChange} placeholder="Department" />
 
-          <Input
-            label="Purpose of Visit"
-            placeholder="Business Meeting"
-          />
+          <Input icon={Briefcase} label="Purpose" name="purpose" value={formData.purpose} onChange={handleChange} placeholder="Purpose of Visit" />
 
-          <Input
-            label="Visit Date"
-            type="date"
-          />
+          <Input icon={CalendarDays} label="Visit Date" name="visitDate" type="date" value={formData.visitDate} onChange={handleChange} />
 
-          <Input
-            label="Expected Check-In Time"
-            type="time"
-          />
+          <Input icon={Clock3} label="Visit Time" name="visitTime" type="time" value={formData.visitTime} onChange={handleChange} />
+
+          <Input icon={Clock3} label="Expected Duration" name="duration" value={formData.duration} onChange={handleChange} placeholder="2 Hours" />
 
         </div>
 
       </div>
 
-      {/* Identity Details */}
+      {/* Additional Information */}
 
-      <div className="mb-10">
+      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
 
-        <h2 className="text-xl font-semibold border-b pb-3 mb-6">
-          Identity Details
+        <h2 className="text-2xl font-bold text-white mb-8">
+          Additional Information
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-2 gap-6">
 
-          <Select
-            label="ID Type"
-            options={[
-              "Aadhaar Card",
-              "PAN Card",
-              "Passport",
-              "Driving License",
-              "Voter ID",
-            ]}
-          />
+          <Input icon={Car} label="Vehicle Number" name="vehicle" value={formData.vehicle} onChange={handleChange} placeholder="TS09AB1234" />
 
-          <Input
-            label="ID Number"
-            placeholder="Enter ID Number"
-          />
+          <Input icon={Briefcase} label="Laptop Carrying" name="laptop" value={formData.laptop} onChange={handleChange} placeholder="Yes / No" />
 
-          <Input
-            label="Vehicle Number"
-            placeholder="Optional"
-          />
+          <Input icon={Phone} label="Emergency Contact" name="emergencyContact" value={formData.emergencyContact} onChange={handleChange} placeholder="Emergency Contact" />
+
+          <Input icon={FileText} label="Remarks" name="remarks" value={formData.remarks} onChange={handleChange} placeholder="Additional Remarks" />
 
         </div>
 
       </div>
 
-      {/* Declaration */}
+    </div>
+  );
+}
 
-      <div className="border rounded-xl p-5 bg-slate-50">
+function Input({
+  icon: Icon,
+  label,
+  name,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+}) {
+  return (
+    <div>
 
-        <label className="flex items-start gap-3">
+      <label className="block text-slate-300 mb-2">
+        {label}
+      </label>
 
-          <input
-            type="checkbox"
-            className="mt-1"
-          />
+      <div className="relative">
 
-          <span className="text-sm text-gray-600">
-            I confirm that the information provided is accurate. I agree
-            to follow the organization's visitor policies and security
-            guidelines during my visit.
-          </span>
+        <Icon
+          size={18}
+          className="absolute left-4 top-4 text-cyan-400"
+        />
 
-        </label>
-
-      </div>
-
-      {/* Register Button */}
-
-      <div className="mt-8 flex justify-end">
-
-        <Button>
-          Register Visitor
-        </Button>
+        <input
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          className="
+            w-full
+            pl-12
+            pr-4
+            py-3
+            rounded-xl
+            bg-slate-800
+            border
+            border-slate-700
+            text-white
+            placeholder:text-slate-500
+            focus:border-cyan-500
+            outline-none
+          "
+        />
 
       </div>
 

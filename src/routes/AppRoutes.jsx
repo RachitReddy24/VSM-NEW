@@ -1,5 +1,4 @@
 import {
-  BrowserRouter,
   Routes,
   Route,
   Navigate,
@@ -13,10 +12,13 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 /* ---------------- ADMIN ---------------- */
 
 import AdminDashboard from "../pages/admin/Dashboard";
+import UserManagement from "../pages/admin/UserManagement";
 import ScheduleMeeting from "../pages/admin/ScheduleMeeting";
 import Reports from "../pages/admin/Reports";
 import Settings from "../pages/admin/Settings";
-
+import EmployeeManagement from "../pages/admin/EmployeeManagement";
+import VisitorHistory from "../pages/admin/VisitorHistory";
+import DepartmentManagement from "../pages/admin/DepartmentManagement";
 /* ---------------- RECEPTION ---------------- */
 
 import ReceptionDashboard from "../pages/reception/Dashboard";
@@ -24,6 +26,7 @@ import VisitorOnboarding from "../pages/reception/VisitorOnboarding";
 import VisitVerification from "../pages/reception/VisitVerification";
 import VisitorStatus from "../pages/reception/VisitorStatus";
 import VisitorCheckIn from "../pages/reception/VisitorCheckIn";
+import VisitorCheckOut from "../pages/reception/VisitorCheckOut";
 
 /* ---------------- VISITOR ---------------- */
 
@@ -46,137 +49,161 @@ import VisitorSMS from "../pages/communication/VisitorSMS";
 
 function AppRoutes() {
   return (
-    <BrowserRouter>
+    <Routes>
 
-      <Routes>
+      {/* Default */}
 
-        {/* Default */}
+      <Route
+        path="/"
+        element={<Navigate to="/login" replace />}
+      />
 
-        <Route
-          path="/"
-          element={<Navigate to="/login" replace />}
-        />
+      {/* ---------------- AUTH ---------------- */}
 
-        {/* Authentication */}
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+      <Route
+        path="/forgot-password"
+        element={<ForgotPassword />}
+      />
 
-        <Route
-          path="/forgot-password"
-          element={<ForgotPassword />}
-        />
+      {/* ---------------- ADMIN ---------------- */}
 
-        {/* ---------------- ADMIN ---------------- */}
+      <Route
+        path="/admin/dashboard"
+        element={<AdminDashboard />}
+      />
 
-        <Route
-          path="/admin/dashboard"
-          element={<AdminDashboard />}
-        />
+      <Route
+        path="/admin/users"
+        element={<UserManagement />}
+      />
 
-        <Route
-          path="/admin/schedule-meeting"
-          element={<ScheduleMeeting />}
-        />
+      <Route
+        path="/admin/schedule-meeting"
+        element={<ScheduleMeeting />}
+      />
 
-        <Route
-          path="/admin/reports"
-          element={<Reports />}
-        />
+      <Route
+        path="/admin/reports"
+        element={<Reports />}
+      />
 
-        <Route
-          path="/admin/settings"
-          element={<Settings />}
-        />
+      <Route
+        path="/admin/settings"
+        element={<Settings />}
+      />
 
-        {/* ---------------- RECEPTION ---------------- */}
+      {/* ---------------- RECEPTION ---------------- */}
 
-        <Route
-          path="/reception/dashboard"
-          element={<ReceptionDashboard />}
-        />
+      <Route
+        path="/reception/dashboard"
+        element={<ReceptionDashboard />}
+      />
 
-        <Route
-          path="/reception/visitor-onboarding"
-          element={<VisitorOnboarding />}
-        />
+      <Route
+        path="/reception/visitor-onboarding"
+        element={<VisitorOnboarding />}
+      />
 
-        <Route
-          path="/reception/visit-verification"
-          element={<VisitVerification />}
-        />
+      <Route
+        path="/reception/visit-verification"
+        element={<VisitVerification />}
+      />
 
-        <Route
-          path="/reception/visitor-status"
-          element={<VisitorStatus />}
-        />
+      <Route
+        path="/reception/visitor-status"
+        element={<VisitorStatus />}
+      />
 
-        <Route
-          path="/reception/visitor-check-in"
-          element={<VisitorCheckIn />}
-        />
+      <Route
+        path="/reception/visitor-check-in"
+        element={<VisitorCheckIn />}
+      />
 
-        {/* ---------------- PUBLIC VISITOR ---------------- */}
+      <Route
+        path="/reception/visitor-check-out"
+        element={<VisitorCheckOut />}
+      />
 
-        <Route
-          path="/register"
-          element={<VisitorRegistration />}
-        />
+      {/* ---------------- VISITOR ---------------- */}
 
-        <Route
-          path="/verify-otp"
-          element={<VerifyOTP />}
-        />
+      <Route
+        path="/register"
+        element={<VisitorRegistration />}
+      />
 
-        <Route
-          path="/registration-success"
-          element={<RegistrationSuccess />}
-        />
+      <Route
+        path="/verify-otp"
+        element={<VerifyOTP />}
+      />
 
-        <Route
-          path="/visitor-pass"
-          element={<VisitorPassPage />}
-        />
+      <Route
+        path="/registration-success"
+        element={<RegistrationSuccess />}
+      />
 
-        {/* ---------------- HOST ---------------- */}
+      <Route
+        path="/visitor-pass"
+        element={<VisitorPassPage />}
+      />
 
-        <Route
-          path="/approval"
-          element={<Approval />}
-        />
+      {/* ---------------- HOST ---------------- */}
 
-        <Route
-          path="/approval-success"
-          element={<ApprovalSuccess />}
-        />
+      <Route
+        path="/approval"
+        element={<Approval />}
+      />
 
-        <Route
-          path="/feedback"
-          element={<Feedback />}
-        />
+      <Route
+        path="/approval-success"
+        element={<ApprovalSuccess />}
+      />
 
-        <Route
-          path="/visit-completed"
-          element={<VisitCompleted />}
-        />
+      <Route
+        path="/feedback"
+        element={<Feedback />}
+      />
 
-        {/* ---------------- COMMUNICATION ---------------- */}
+      <Route
+        path="/visit-completed"
+        element={<VisitCompleted />}
+      />
 
-        <Route
-          path="/host-email"
-          element={<HostEmail />}
-        />
+      {/* ---------------- COMMUNICATION ---------------- */}
 
-        <Route
-          path="/visitor-sms"
-          element={<VisitorSMS />}
-        />
+      <Route
+        path="/host-email"
+        element={<HostEmail />}
+      />
 
-      </Routes>
+      <Route
+        path="/visitor-sms"
+        element={<VisitorSMS />}
+      />
 
-    </BrowserRouter>
+      {/* ---------------- 404 ---------------- */}
+
+      <Route
+        path="*"
+        element={<Navigate to="/login" replace />}
+      />
+      <Route
+        path="/admin/departments"
+        element={<DepartmentManagement />}
+      />
+      <Route
+        path="/admin/employees"
+        element={<EmployeeManagement />}
+      />
+      <Route
+        path="/admin/visitor-history"
+        element={<VisitorHistory />}
+      />
+    </Routes>
   );
 }
 

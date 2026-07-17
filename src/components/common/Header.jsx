@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Search,
   Bell,
   UserCircle2,
   ChevronDown,
-  Settings,
   LogOut,
-  User,
   CheckCircle2,
   UserPlus,
   ShieldCheck,
   Clock3,
 } from "lucide-react";
 
-function Header() {
-  const [time, setTime] = useState("");
+function Header({
+  userName = "Administrator",
+  userRole = "Administrator",
+}) {
+  const navigate = useNavigate();
 
+  const [time, setTime] = useState("");
   const [showNotification, setShowNotification] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
@@ -32,6 +35,11 @@ function Header() {
 
     return () => clearInterval(timer);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login", { replace: true });
+  };
 
   const notifications = [
     {
@@ -66,13 +74,9 @@ function Header() {
 
   return (
     <header className="sticky top-0 z-50 h-24 border-b border-slate-800 bg-slate-900/95 backdrop-blur-xl">
-
       <div className="h-full px-8 flex items-center justify-between">
 
-        {/* Search */}
-
         <div className="relative">
-
           <Search
             size={18}
             className="absolute left-4 top-4 text-slate-400"
@@ -80,41 +84,21 @@ function Header() {
 
           <input
             placeholder="Search visitors, employee, company..."
-            className="
-            w-[420px]
-            rounded-2xl
-            bg-slate-800
-            border
-            border-slate-700
-            pl-12
-            pr-5
-            py-3
-            text-white
-            placeholder:text-slate-500
-            outline-none
-            focus:ring-2
-            focus:ring-cyan-500
-            "
+            className="w-[420px] rounded-2xl bg-slate-800 border border-slate-700 pl-12 pr-5 py-3 text-white placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-cyan-500"
           />
-
         </div>
-
-        {/* Right */}
 
         <div className="flex items-center gap-8">
 
           <div className="hidden lg:flex items-center gap-3">
-
             <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
 
             <span className="text-green-400 font-medium">
               System Online
             </span>
-
           </div>
 
           <div className="text-right">
-
             <h2 className="text-xl font-bold text-white">
               {time}
             </h2>
@@ -122,27 +106,20 @@ function Header() {
             <p className="text-slate-400 text-sm">
               {new Date().toDateString()}
             </p>
-
           </div>
 
-          {/* Notification */}
+          {/* Notifications */}
 
           <div className="relative">
 
             <button
-              onClick={() =>
-                setShowNotification(!showNotification)
-              }
+              onClick={() => setShowNotification(!showNotification)}
               className="relative w-12 h-12 rounded-2xl bg-slate-800 hover:bg-blue-600 transition flex items-center justify-center"
             >
-
-              <Bell
-                size={22}
-                className="text-white"
-              />
+              <Bell size={22} className="text-white" />
 
               <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-red-500 text-xs flex items-center justify-center font-bold">
-                4
+                {notifications.length}
               </span>
 
             </button>
@@ -207,14 +184,12 @@ function Header() {
 
           </div>
 
-          {/* Profile */}
+          {/* User */}
 
           <div className="relative">
 
             <button
-              onClick={() =>
-                setShowProfile(!showProfile)
-              }
+              onClick={() => setShowProfile(!showProfile)}
               className="flex items-center gap-4"
             >
 
@@ -230,40 +205,33 @@ function Header() {
               <div className="hidden md:block text-left">
 
                 <h3 className="font-semibold text-white">
-                  Reception Admin
+                  {userName}
                 </h3>
 
                 <p className="text-slate-400 text-sm">
-                  S3D Technologies
+                  {userRole}
                 </p>
 
               </div>
 
-              <ChevronDown
-                className="text-slate-400"
-              />
+              <ChevronDown className="text-slate-400" />
 
             </button>
 
             {showProfile && (
 
-              <div className="absolute right-0 mt-4 w-72 bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden">
+              <div className="absolute right-0 mt-4 w-64 bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden">
 
-                <MenuItem
-                  icon={User}
-                  text="My Profile"
-                />
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-4 px-6 py-5 text-red-400 hover:bg-red-500/10 transition"
+                >
 
-                <MenuItem
-                  icon={Settings}
-                  text="Settings"
-                />
+                  <LogOut size={20} />
 
-                <MenuItem
-                  icon={LogOut}
-                  text="Logout"
-                  danger
-                />
+                  Logout
+
+                </button>
 
               </div>
 
@@ -274,36 +242,7 @@ function Header() {
         </div>
 
       </div>
-
     </header>
-  );
-}
-
-function MenuItem({
-  icon: Icon,
-  text,
-  danger,
-}) {
-  return (
-    <button
-      className={`
-      w-full
-      flex
-      items-center
-      gap-4
-      px-6
-      py-4
-      hover:bg-slate-800
-      transition
-      ${danger ? "text-red-400" : "text-white"}
-      `}
-    >
-
-      <Icon size={18} />
-
-      {text}
-
-    </button>
   );
 }
 
